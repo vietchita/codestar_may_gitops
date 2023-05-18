@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:  
+  annotations:
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: myapp
+  namespace: taa  
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: quanlycongviec.viettq.com 
+    http:
+      paths:
+      - backend:
+          service:
+            name: taa-svc
+            port:
+              number: 80
+        path: /(/|$)(.*)
+        pathType: Prefix
+
+
+
